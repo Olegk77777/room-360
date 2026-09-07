@@ -24,3 +24,59 @@
 @media(max-height:730px){.header{height:66px;}.home-content{padding-top:23px;}h1{font-size:38px;margin-top:15px;}.orbit-diagram{height:186px;margin:15px auto 9px;transform:scale(.9);transform-origin:top center;}.home-facts{margin:12px 0 17px;}.capture-top{padding-top:13px;}.camera-frame{height:45svh;min-height:265px;}.camera-overlay{gap:9px;padding:17px;}.camera-overlay p{font-size:14px;}.camera-overlay>svg{height:25px;}.capture-controls{margin:14px 0 10px;}.shutter{height:62px;width:62px;}}
 @media(max-width:360px){.app{padding-left:17px;padding-right:17px;}.map-row>div{gap:6px;}.home-facts{gap:15px;}.camera-overlay h2{font-size:20px;}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
+/* Съёмка занимает весь доступный экран; настройки открываются отдельно. */
+.app.camera-mode { position:fixed;inset:0;width:100%;height:100dvh;min-height:0;max-width:none;padding:0;margin:0;border:0;background:#080c0a;overflow:hidden; }
+.camera-mode>.header,.camera-mode>.footer {display:none;}
+.camera-mode .capture-content {position:absolute;inset:0;}
+.camera-mode .camera-frame {position:absolute;inset:0;height:100%;min-height:0;max-height:none;border:0;border-radius:0;}
+.camera-mode .camera-frame video {object-fit:cover;}
+.camera-mode .camera-corners {display:none;}
+.capture-toolbar {position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 12px) max(16px,env(safe-area-inset-right)) 20px max(16px,env(safe-area-inset-left));background:linear-gradient(#000a,transparent);pointer-events:none;}
+.capture-toolbar>* {pointer-events:auto;}
+.hud-button {display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:44px;min-height:44px;padding:10px;border:1px solid #ffffff25;border-radius:50px;background:#11151399;color:#f3f7ee;backdrop-filter:blur(12px);font-size:14px;}
+.capture-counter {display:flex;flex:1;flex-direction:column;gap:2px;text-shadow:0 1px 4px #000;}
+.capture-counter strong {font-size:17px;font-variant-numeric:tabular-nums;font-weight:550;}
+.capture-counter>span {font-size:12px;color:#e1e8dd;}
+.camera-mode .capture-controls {position:absolute;bottom:0;left:0;right:0;z-index:5;margin:0;padding:16px 22px max(18px,env(safe-area-inset-bottom));gap:16px;background:linear-gradient(transparent,#000b);pointer-events:none;}
+.camera-mode .capture-controls>* {pointer-events:auto;}
+.camera-mode .round-control {color:white;text-shadow:0 1px 5px #000;}
+.camera-mode .round-control span {color:#eef4e8;font-size:12px;}
+.camera-mode .shutter {width:68px;height:68px;background:#11151380;backdrop-filter:blur(8px);}
+.camera-mode .camera-caption {bottom:calc(112px + env(safe-area-inset-bottom));left:50%;right:auto;transform:translateX(-50%);width:max-content;max-width:calc(100% - 36px);padding:8px 14px;gap:3px;pointer-events:none;}
+.camera-mode .camera-caption strong {font-size:17px;}
+.camera-mode .camera-caption span {font-size:12px;}
+.edge-guide {position:absolute;z-index:3;transform:translate(-50%,-50%);width:46px;min-height:59px;border-radius:23px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--primary);color:#15210c;box-shadow:0 0 0 5px #14210d66,0 3px 15px #0005;pointer-events:none;}
+.edge-guide span {font-size:12px;font-weight:650;font-variant-numeric:tabular-nums;}
+.camera-mode .target-point {width:30px;height:30px;pointer-events:none;}
+.camera-mode .camera-overlay {inset:auto 14px calc(109px + env(safe-area-inset-bottom));max-height:calc(100% - 208px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow:auto;border-radius:22px;border:1px solid #ffffff25;background:#101611db;padding:22px 20px;gap:12px;backdrop-filter:blur(15px);}
+.camera-mode .camera-overlay h2 {font-size:23px;}
+.camera-mode .camera-overlay p {font-size:15px;max-width:400px;}
+.setup-camera-button {display:flex;align-items:center;gap:12px;border:1px solid #536147;border-radius:13px;padding:12px;background:#222c1f;color:#f0f6e9;width:100%;max-width:360px;text-align:left;}
+.setup-camera-button>span {min-width:0;flex:1;overflow-wrap:anywhere;font-size:15px;}
+.setup-camera-button small {display:block;margin-top:4px;font-size:12px;color:var(--primary);}
+.capture-sheet {padding-bottom:max(24px,env(safe-area-inset-bottom));max-height:85dvh;overflow-y:auto;border-radius:24px 24px 0 0;background:#171f16;color:#eaf2e4;}
+.capture-sheet [data-slot=sheet-header] {padding:24px 65px 0 24px;gap:7px;}
+.capture-sheet [data-slot=sheet-title] {font-size:22px;}
+.sheet-close {position:absolute;right:14px;top:15px;}
+.camera-list,.capture-settings {padding:0 24px;display:flex;flex-direction:column;gap:12px;}
+.camera-list .camera-option {width:100%;height:auto;min-height:66px;border-radius:14px;text-align:left;padding:14px;gap:12px;white-space:normal;background:#202a1d;border:1px solid #3b4934;color:#eef6e7;}
+.camera-option>span {flex:1;min-width:0;overflow-wrap:anywhere;font-size:15px;}
+.camera-option small {display:block;font-size:12px;margin-top:4px;color:#a1b196;font-weight:400;}
+.camera-list .camera-option.selected {border-color:var(--primary);}
+.capture-settings>p,.camera-list>.muted {font-size:14px;line-height:1.5;color:#adc09f;}
+.capture-settings .auto-switch {justify-content:space-between;padding:10px 0;margin:0;}
+.camera-mode>.notice {position:absolute;top:calc(78px + env(safe-area-inset-top));left:14px;right:14px;z-index:8;margin:0;box-shadow:0 4px 30px #0008;}
+.camera-mode .capture-note {position:absolute;top:calc(80px + env(safe-area-inset-top));left:16px;right:16px;z-index:6;background:#26251ddd;border-radius:12px;padding:10px;font-size:13px;}
+@media(orientation:landscape) and (max-height:600px){
+  .capture-toolbar {padding-top:max(8px,env(safe-area-inset-top));padding-bottom:10px;}
+  .camera-mode .capture-controls {left:50%;padding:8px 20px max(10px,env(safe-area-inset-bottom));gap:8px;}
+  .camera-mode .shutter {width:58px;height:58px;}
+  .camera-mode .round-control {min-width:60px;}
+  .camera-mode .camera-caption {bottom:20px;left:max(20px,env(safe-area-inset-left));right:auto;transform:none;width:calc(50% - 40px);max-width:380px;text-align:left;}
+  .camera-mode .camera-overlay {inset:72px auto 85px 50%;transform:translateX(-50%);width:min(470px,75%);max-height:none;padding:14px;gap:7px;justify-content:flex-start;}
+  .camera-mode .camera-overlay h2 {font-size:19px;}
+  .camera-mode .camera-overlay p {font-size:14px;}
+  .camera-mode .camera-overlay .previous-shot {height:65px;}
+  .camera-mode .camera-overlay .compact {min-height:44px;}
+}

@@ -1,5 +1,5 @@
 export type Pose = {right:number[];up:number[];forward:number[]};
-export type Shot = {id:number;blob:Blob;pose:Pose;hfov:number;width:number;height:number;created:number;manual:boolean};
+export type Shot = {id:number;blob:Blob;pose:Pose;hfov:number;width:number;height:number;created:number;manual:boolean;cameraId?:string;cameraLabel?:string;facingMode?:string};
 let connection:Promise<IDBDatabase>|undefined;
 function db(){
   return connection??=new Promise<IDBDatabase>((resolve,reject)=>{
